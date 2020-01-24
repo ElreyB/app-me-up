@@ -12,8 +12,9 @@ const {
 const questions = [
   {
     type: "input",
-    name: "project",
-    message: "What is the name of your project?"
+    name: "projectName",
+    message: "What is the name of your project?",
+    default: "Document"
   },
   {
     type: "confirm",
@@ -27,17 +28,21 @@ const questions = [
   }
 ];
 
-inquirer.prompt(questions).then(({ css, javascript }) => {
+inquirer.prompt(questions).then(({ css, javascript, projectName }) => {
   if (!css && !javascript) {
-    return fs.writeFile("index.html", `${html}${htmlEnd}`, err => {
+    return fs.writeFile("index.html", `${html(projectName)}${htmlEnd}`, err => {
       if (err) console.error(err);
     });
   }
 
   if (javascript && css) {
-    fs.writeFile("index.html", `${htmlWithStyles}${htmlWithScript}`, err => {
-      if (err) console.error(err);
-    });
+    fs.writeFile(
+      "index.html",
+      `${htmlWithStyles(projectName)}${htmlWithScript}`,
+      err => {
+        if (err) console.error(err);
+      }
+    );
 
     fs.writeFile("style.css", "", err => {
       if (err) console.error(err);
@@ -50,7 +55,7 @@ inquirer.prompt(questions).then(({ css, javascript }) => {
   }
 
   if (javascript) {
-    fs.writeFile("index.html", `${html}${htmlWithScript}`, err => {
+    fs.writeFile("index.html", `${html(projectName)}${htmlWithScript}`, err => {
       if (err) console.error(err);
     });
     fs.writeFile("script.js", "", err => {
@@ -60,9 +65,13 @@ inquirer.prompt(questions).then(({ css, javascript }) => {
   }
 
   if (css) {
-    fs.writeFile("index.html", `${htmlWithStyles}${htmlEnd}`, err => {
-      if (err) console.error(err);
-    });
+    fs.writeFile(
+      "index.html",
+      `${htmlWithStyles(projectName)}${htmlEnd}`,
+      err => {
+        if (err) console.error(err);
+      }
+    );
 
     fs.writeFile("style.css", "", err => {
       if (err) console.error(err);
