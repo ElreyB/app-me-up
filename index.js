@@ -11,6 +11,11 @@ const {
 
 const questions = [
   {
+    type: "input",
+    name: "project",
+    message: "What is the name of your project?"
+  },
+  {
     type: "confirm",
     name: "css",
     message: "Do you want a css file?"
