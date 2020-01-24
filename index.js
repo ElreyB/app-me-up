@@ -33,6 +33,43 @@ const callbackConsole = err => {
 };
 
 inquirer.prompt(questions).then(({ css, javascript, projectName }) => {
+  // switch (true) {
+  //   case css && javascript:
+  //     fs.writeFile(
+  //       "index.html",
+  //       `${htmlWithStyles(projectName)}${htmlWithScript}`,
+  //       callbackConsole
+  //     );
+
+  //     fs.writeFile("style.css", "", callbackConsole);
+
+  //     fs.writeFile("script.js", "", callbackConsole);
+  //     break;
+  //   case javascript:
+  //     fs.writeFile(
+  //       "index.html",
+  //       `${html(projectName)}${htmlWithScript}`,
+  //       callbackConsole
+  //     );
+  //     fs.writeFile("script.js", "", callbackConsole);
+  //     break;
+  //   case css:
+  //     fs.writeFile(
+  //       "index.html",
+  //       `${htmlWithStyles(projectName)}${htmlEnd}`,
+  //       callbackConsole
+  //     );
+
+  //     fs.writeFile("style.css", "", callbackConsole);
+  //     break;
+  //   default:
+  //     fs.writeFile(
+  //       "index.html",
+  //       `${html(projectName)}${htmlEnd}`,
+  //       callbackConsole
+  //     );
+  // }
+
   if (javascript && css) {
     fs.writeFile(
       "index.html",
