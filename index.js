@@ -28,54 +28,42 @@ const questions = [
   }
 ];
 
-inquirer.prompt(questions).then(({ css, javascript, projectName }) => {
-  if (!css && !javascript) {
-    return fs.writeFile("index.html", `${html(projectName)}${htmlEnd}`, err => {
-      if (err) console.error(err);
-    });
-  }
+const callbackConsole = err => {
+  err ? console.error("There was an error", err) : console.log("Success!");
+};
 
+inquirer.prompt(questions).then(({ css, javascript, projectName }) => {
   if (javascript && css) {
     fs.writeFile(
       "index.html",
       `${htmlWithStyles(projectName)}${htmlWithScript}`,
-      err => {
-        if (err) console.error(err);
-      }
+      callbackConsole
     );
 
-    fs.writeFile("style.css", "", err => {
-      if (err) console.error(err);
-    });
+    fs.writeFile("style.css", "", callbackConsole);
 
-    fs.writeFile("script.js", "", err => {
-      if (err) console.error(err);
-    });
-    return;
-  }
+    fs.writeFile("script.js", "", callbackConsole);
+  } else if (javascript) {
+    fs.writeFile(
+      "index.html",
+      `${html(projectName)}${htmlWithScript}`,
+      callbackConsole
+    );
 
-  if (javascript) {
-    fs.writeFile("index.html", `${html(projectName)}${htmlWithScript}`, err => {
-      if (err) console.error(err);
-    });
-    fs.writeFile("script.js", "", err => {
-      if (err) console.error(err);
-    });
-    return;
-  }
-
-  if (css) {
+    fs.writeFile("script.js", "", callbackConsole);
+  } else if (css) {
     fs.writeFile(
       "index.html",
       `${htmlWithStyles(projectName)}${htmlEnd}`,
-      err => {
-        if (err) console.error(err);
-      }
+      callbackConsole
     );
 
-    fs.writeFile("style.css", "", err => {
-      if (err) console.error(err);
-    });
-    return;
+    fs.writeFile("style.css", "", callbackConsole);
+  } else {
+    fs.writeFile(
+      "index.html",
+      `${html(projectName)}${htmlEnd}`,
+      callbackConsole
+    );
   }
 });
