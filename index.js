@@ -18,7 +18,6 @@ const questions = [
 ];
 
 inquirer.prompt(questions).then(({ css, javascript }) => {
-  console.log(JSON.stringify(answers, null, 2));
   fs.writeFile("index.html", javascript ? htmlWithScript : html, err => {
     if (err) console.error(err);
   });
