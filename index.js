@@ -17,13 +17,15 @@ const questions = [
   }
 ];
 
-inquirer.prompt(questions).then(answers => {
+inquirer.prompt(questions).then(({ css, javascript }) => {
   console.log(JSON.stringify(answers, null, 2));
-  fs.writeFile(
-    "index.html",
-    answers.javascript ? htmlWithScript : html,
-    err => {
+  fs.writeFile("index.html", javascript ? htmlWithScript : html, err => {
+    if (err) console.error(err);
+  });
+
+  if (css) {
+    fs.writeFile("style.css", "", err => {
       if (err) console.error(err);
-    }
-  );
+    });
+  }
 });
