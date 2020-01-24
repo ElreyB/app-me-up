@@ -24,3 +24,8 @@ const htmlWithScript = `<!DOCTYPE html>
   </body>
 </html>
 `;
+
+module.exports = {
+  html,
+  htmlWithScript
+};
