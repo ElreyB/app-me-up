@@ -1,11 +1,12 @@
 {
   "name": "app-me-up",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A script to build a basic app template with html, css, and html files.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ElreyB/app-me-up.git"
