@@ -15,6 +15,10 @@ const {
 
 const github = process.argv.slice(2)[0];
 
+if (github && github !== "github") {
+  throw `Did not recognize: ${github}`;
+}
+
 const githubQuestion = [
   {
     type: "input",
