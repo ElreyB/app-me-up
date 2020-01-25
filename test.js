@@ -33,14 +33,14 @@ const queryUrl = `https://api.github.com/users/elreyb/repos?per_page=100`;
 fetch(queryUrl)
   .then(res => res.json())
   .then(repos => {
-    console.log(repos[0].owner);
+    repoList = repos;
+    console.log(repos);
     const main = document.querySelector("main");
     const owner = repos[0].owner;
     const imgEl = card(owner);
 
     main.prepend(imgEl);
 
-    repoList = repos.map(repo => repo.name);
     const section = document.querySelector("section");
     const ul = document.createElement("ul");
 
@@ -49,13 +49,18 @@ fetch(queryUrl)
       style: "list-style-type: none"
     });
 
-    repoList.forEach(name => {
+    repoList.forEach(({ name, html_url }) => {
       const li = document.createElement("li");
-      const button = document.createElement("button");
+      const button = document.createElement("a");
 
       button.innerText = name;
 
-      addAttributes(button, { type: "button", class: "btn btn-info" });
+      addAttributes(button, {
+        href: html_url,
+        class: "btn btn-info",
+        target: "_blank",
+        rel: "noopener noreferrer"
+      });
       addAttributes(li, { class: "my-3" });
 
       li.appendChild(button);
