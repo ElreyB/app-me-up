@@ -1,19 +1,66 @@
 "use strict";
 
+// document.querySelector("body").style.backgroundImage =
+//   "url('https://cdn.hipwallpaper.com/i/52/25/YHV2NW.jpg')";
+
+const addAttributes = (element, attrsObject) => {
+  Object.entries(attrsObject).forEach(([attr, value]) =>
+    element.setAttribute(attr, value)
+  );
+};
+
+let repoList = [];
+
+const card = ({ avatar_url, login, url }) => {
+  const div = document.createElement("div");
+  div.classList.add("text-center");
+  div.innerHTML = `
+  <div class="card w-25 mx-auto">
+    <img src="${avatar_url}" class="card-img-top" alt="github image">
+    <div class="card-body text-center">
+    <a href="${url}" target="_blank" rel="noopener noreferrer">
+      <h5 class="card-title">${login}</h5>
+    </a>
+    <button class="btn btn-primary">Go somewhere</button>
+    </div>
+  </div>
+`;
+
+  return div;
+};
+
 const queryUrl = `https://api.github.com/users/elreyb/repos?per_page=100`;
 fetch(queryUrl)
   .then(res => res.json())
   .then(repos => {
-    console.log(repos[0]);
-    // const repos = result.data;
-    const repoNames = repos.map(repo => repo.name);
+    console.log(repos[0].owner);
     const main = document.querySelector("main");
-    console.log(main);
+    const owner = repos[0].owner;
+    const imgEl = card(owner);
+
+    main.prepend(imgEl);
+
+    repoList = repos.map(repo => repo.name);
+    const section = document.querySelector("section");
     const ul = document.createElement("ul");
-    repoNames.forEach(name => {
+
+    addAttributes(ul, {
+      class: "d-flex justify-content-around flex-wrap",
+      style: "list-style-type: none"
+    });
+
+    repoList.forEach(name => {
       const li = document.createElement("li");
-      li.innerText = name;
+      const button = document.createElement("button");
+
+      button.innerText = name;
+
+      addAttributes(button, { type: "button", class: "btn btn-info" });
+      addAttributes(li, { class: "my-3" });
+
+      li.appendChild(button);
       ul.append(li);
     });
-    main.appendChild(ul);
+
+    section.appendChild(ul);
   });
