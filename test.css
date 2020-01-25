@@ -1,8 +1,5 @@
 body {
-  background-image: url("./images/github-image.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: black;
 }
 
 main {
