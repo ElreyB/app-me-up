@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const inquirer = require("inquirer");
+const { openInBrowser } = require("./openInBrowser");
 
 const {
   htmlFile,
@@ -54,4 +55,5 @@ inquirer.prompt(questions).then(({ css, javascript, projectName }) => {
   } else {
     htmlFile(projectName);
   }
+  openInBrowser(["index.html"], console.log.bind(console));
 });
