@@ -11,7 +11,7 @@ const addAttributes = (element, attrsObject) => {
 
 let repoList = [];
 
-const card = ({ avatar_url, login, url }) => {
+const card = ({ avatar_url, login, url }, count) => {
   const div = document.createElement("div");
   div.classList.add("text-center");
   div.innerHTML = `
@@ -20,8 +20,8 @@ const card = ({ avatar_url, login, url }) => {
     <div class="card-body text-center">
     <a href="${url}" target="_blank" rel="noopener noreferrer">
       <h5 class="card-title">${login}</h5>
-    </a>
-    <button class="btn btn-primary">Go somewhere</button>
+      </a>
+      <p>${count} Repos</p>
     </div>
   </div>
 `;
@@ -37,7 +37,7 @@ fetch(queryUrl)
     console.log(repos);
     const main = document.querySelector("main");
     const owner = repos[0].owner;
-    const imgEl = card(owner);
+    const imgEl = card(owner, repos.length);
 
     main.prepend(imgEl);
 
@@ -61,6 +61,7 @@ fetch(queryUrl)
         target: "_blank",
         rel: "noopener noreferrer"
       });
+
       addAttributes(li, { class: "my-3" });
 
       li.appendChild(button);
