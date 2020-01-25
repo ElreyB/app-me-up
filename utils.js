@@ -7,6 +7,8 @@ const {
   htmlTemplateWithStyles
 } = require("./templates/html");
 
+const { ghCss, ghHTML, ghJs } = require("./templates/ghRepo");
+
 const callbackConsole = err => {
   err
     ? console.error("There was an error", err)
@@ -52,9 +54,18 @@ const htmlCssJsFiles = projectName => {
   fs.writeFile("script.js", "", callbackConsole);
 };
 
+const ghRepoFiles = name => {
+  fs.writeFile("index.html", ghHTML(name), callbackConsole);
+
+  fs.writeFile("style.css", ghCss, callbackConsole);
+
+  fs.writeFile("script.js", ghJs(name), callbackConsole);
+};
+
 module.exports = {
   htmlFile,
   htmlCssFiles,
   htmlJsFiles,
-  htmlCssJsFiles
+  htmlCssJsFiles,
+  ghRepoFiles
 };

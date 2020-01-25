@@ -10,7 +10,8 @@ const {
   htmlFile,
   htmlCssFiles,
   htmlJsFiles,
-  htmlCssJsFiles
+  htmlCssJsFiles,
+  ghRepoFiles
 } = require("./utils");
 
 const github = process.argv.slice(2)[0];
@@ -50,6 +51,9 @@ inquirer
   .prompt(github ? githubQuestion : questions)
   .then(({ css, javascript, projectName, name }) => {
     // switch (true) {
+    //   case name:
+    //     ghRepoFiles(name);
+    //     break;
     //   case css && javascript:
     //     htmlCssJsFiles(projectName);
     //     break;
@@ -63,9 +67,9 @@ inquirer
     //     htmlFile(projectName);
     // }
 
-    if (name) return console.log(name);
-
-    if (javascript && css) {
+    if (name) {
+      ghRepoFiles(name);
+    } else if (javascript && css) {
       htmlCssJsFiles(projectName);
     } else if (javascript) {
       htmlJsFiles(projectName);
