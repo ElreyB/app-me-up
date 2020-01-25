@@ -13,6 +13,7 @@ const htmlTemplate = projectName => {
   <title>${projectName}</title>
 </head>
 <body>
+<h1>${projectName}</h1>
 `;
 };
 
@@ -22,6 +23,7 @@ const htmlTemplateEnd = `
 `;
 
 const htmlTemplateWithScript = `
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
@@ -39,12 +41,32 @@ const htmlTemplateWithStyles = projectName => {
     <title>${projectName}</title>
   </head>
   <body>
+  <h1>${projectName}</h1>
   `;
 };
+const htmlCss = `
+h1 {
+  color: green;
+}
+`;
+
+const htmlJs = `
+"use strict";
+
+const timeEl = document.createElement("h3");
+document.body.appendChild(timeEl);
+
+setInterval(() => {
+  timeEl.innerText = moment().format("MMMM Do YYYY, h:mm:ss a");
+}, 1000);
+
+`;
 
 module.exports = {
   htmlTemplate,
   htmlTemplateEnd,
   htmlTemplateWithScript,
-  htmlTemplateWithStyles
+  htmlTemplateWithStyles,
+  htmlCss,
+  htmlJs
 };

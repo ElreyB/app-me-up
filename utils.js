@@ -4,7 +4,9 @@ const {
   htmlTemplate,
   htmlTemplateWithScript,
   htmlTemplateEnd,
-  htmlTemplateWithStyles
+  htmlTemplateWithStyles,
+  htmlCss,
+  htmlJs
 } = require("./templates/html");
 
 const { ghCss, ghHTML, ghJs } = require("./templates/ghRepo");
@@ -29,7 +31,7 @@ const htmlCssFiles = projectName => {
     `${htmlTemplateWithStyles(projectName)}${htmlTemplateEnd}`,
     callbackConsole
   );
-  fs.writeFile("style.css", "", callbackConsole);
+  fs.writeFile("style.css", htmlCss, callbackConsole);
 };
 
 const htmlJsFiles = projectName => {
@@ -39,7 +41,7 @@ const htmlJsFiles = projectName => {
     callbackConsole
   );
 
-  fs.writeFile("script.js", "", callbackConsole);
+  fs.writeFile("script.js", htmlJs, callbackConsole);
 };
 
 const htmlCssJsFiles = projectName => {
@@ -49,9 +51,9 @@ const htmlCssJsFiles = projectName => {
     callbackConsole
   );
 
-  fs.writeFile("style.css", "", callbackConsole);
+  fs.writeFile("style.css", htmlCss, callbackConsole);
 
-  fs.writeFile("script.js", "", callbackConsole);
+  fs.writeFile("script.js", htmlJs, callbackConsole);
 };
 
 const ghRepoFiles = name => {
