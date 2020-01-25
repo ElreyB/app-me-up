@@ -12,7 +12,7 @@ const {
   htmlJsFiles,
   htmlCssJsFiles,
   ghRepoFiles
-} = require("./utils");
+} = require("./fileWriters");
 
 const github = process.argv.slice(2)[0];
 
