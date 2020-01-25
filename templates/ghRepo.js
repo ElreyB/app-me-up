@@ -63,7 +63,6 @@ fetch(queryUrl)
   .then(res => res.json())
   .then(repos => {
     repoList = repos;
-    console.log(repos);
     const main = document.querySelector("main");
     const owner = repos[0].owner;
     const imgEl = card(owner, repos.length);
