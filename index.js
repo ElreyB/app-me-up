@@ -1,13 +1,15 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 const inquirer = require("inquirer");
+
 const {
-  html,
-  htmlWithScript,
-  htmlEnd,
-  htmlWithStyles
-} = require("./templates/html");
+  htmlFile,
+  htmlCssFiles,
+  htmlJsFiles,
+  htmlCssJsFiles
+} = require("./utils");
 
 const questions = [
   {
@@ -28,79 +30,28 @@ const questions = [
   }
 ];
 
-const callbackConsole = err => {
-  err ? console.error("There was an error", err) : console.log("Success!");
-};
-
 inquirer.prompt(questions).then(({ css, javascript, projectName }) => {
   // switch (true) {
   //   case css && javascript:
-  //     fs.writeFile(
-  //       "index.html",
-  //       `${htmlWithStyles(projectName)}${htmlWithScript}`,
-  //       callbackConsole
-  //     );
-
-  //     fs.writeFile("style.css", "", callbackConsole);
-
-  //     fs.writeFile("script.js", "", callbackConsole);
+  //     htmlCssJsFiles(projectName);
   //     break;
   //   case javascript:
-  //     fs.writeFile(
-  //       "index.html",
-  //       `${html(projectName)}${htmlWithScript}`,
-  //       callbackConsole
-  //     );
-  //     fs.writeFile("script.js", "", callbackConsole);
+  //     htmlJsFiles(projectName);
   //     break;
   //   case css:
-  //     fs.writeFile(
-  //       "index.html",
-  //       `${htmlWithStyles(projectName)}${htmlEnd}`,
-  //       callbackConsole
-  //     );
-
-  //     fs.writeFile("style.css", "", callbackConsole);
+  //     htmlCssFiles(projectName);
   //     break;
   //   default:
-  //     fs.writeFile(
-  //       "index.html",
-  //       `${html(projectName)}${htmlEnd}`,
-  //       callbackConsole
-  //     );
+  //     htmlFile(projectName);
   // }
 
   if (javascript && css) {
-    fs.writeFile(
-      "index.html",
-      `${htmlWithStyles(projectName)}${htmlWithScript}`,
-      callbackConsole
-    );
-
-    fs.writeFile("style.css", "", callbackConsole);
-
-    fs.writeFile("script.js", "", callbackConsole);
+    htmlCssJsFiles(projectName);
   } else if (javascript) {
-    fs.writeFile(
-      "index.html",
-      `${html(projectName)}${htmlWithScript}`,
-      callbackConsole
-    );
-
-    fs.writeFile("script.js", "", callbackConsole);
+    htmlJsFiles(projectName);
   } else if (css) {
-    fs.writeFile(
-      "index.html",
-      `${htmlWithStyles(projectName)}${htmlEnd}`,
-      callbackConsole
-    );
-
-    fs.writeFile("style.css", "", callbackConsole);
+    htmlCssFiles(projectName);
   } else {
-    fs.writeFile(
-      "index.html",
-      `${html(projectName)}${htmlEnd}`,
-      callbackConsole
-    );
+    htmlFile(projectName);
   }
 });

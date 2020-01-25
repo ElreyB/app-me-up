@@ -1,4 +1,8 @@
-const html = projectName => {
+"use strict";
+
+const fs = require("fs");
+
+const htmlTemplate = projectName => {
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -12,18 +16,18 @@ const html = projectName => {
 `;
 };
 
-const htmlEnd = `
+const htmlTemplateEnd = `
 </body>
 </html>
 `;
 
-const htmlWithScript = `
+const htmlTemplateWithScript = `
     <script src="script.js"></script>
   </body>
 </html>
 `;
 
-const htmlWithStyles = projectName => {
+const htmlTemplateWithStyles = projectName => {
   return `
   <!DOCTYPE html>
   <html lang="en">
@@ -39,8 +43,8 @@ const htmlWithStyles = projectName => {
 };
 
 module.exports = {
-  html,
-  htmlEnd,
-  htmlWithScript,
-  htmlWithStyles
+  htmlTemplate,
+  htmlTemplateEnd,
+  htmlTemplateWithScript,
+  htmlTemplateWithStyles
 };
