@@ -13,6 +13,16 @@ const {
   htmlCssJsFiles
 } = require("./utils");
 
+const github = process.argv.slice(2)[0];
+
+const githubQuestion = [
+  {
+    type: "input",
+    name: "name",
+    message: "What is your github username?"
+  }
+];
+
 const questions = [
   {
     type: "input",
@@ -32,29 +42,33 @@ const questions = [
   }
 ];
 
-inquirer.prompt(questions).then(({ css, javascript, projectName }) => {
-  // switch (true) {
-  //   case css && javascript:
-  //     htmlCssJsFiles(projectName);
-  //     break;
-  //   case javascript:
-  //     htmlJsFiles(projectName);
-  //     break;
-  //   case css:
-  //     htmlCssFiles(projectName);
-  //     break;
-  //   default:
-  //     htmlFile(projectName);
-  // }
+inquirer
+  .prompt(github ? githubQuestion : questions)
+  .then(({ css, javascript, projectName, name }) => {
+    // switch (true) {
+    //   case css && javascript:
+    //     htmlCssJsFiles(projectName);
+    //     break;
+    //   case javascript:
+    //     htmlJsFiles(projectName);
+    //     break;
+    //   case css:
+    //     htmlCssFiles(projectName);
+    //     break;
+    //   default:
+    //     htmlFile(projectName);
+    // }
 
-  if (javascript && css) {
-    htmlCssJsFiles(projectName);
-  } else if (javascript) {
-    htmlJsFiles(projectName);
-  } else if (css) {
-    htmlCssFiles(projectName);
-  } else {
-    htmlFile(projectName);
-  }
-  openInBrowser(["index.html"], console.log.bind(console));
-});
+    if (name) return console.log(name);
+
+    if (javascript && css) {
+      htmlCssJsFiles(projectName);
+    } else if (javascript) {
+      htmlJsFiles(projectName);
+    } else if (css) {
+      htmlCssFiles(projectName);
+    } else {
+      htmlFile(projectName);
+    }
+    openInBrowser(["index.html"], console.log.bind(console));
+  });
