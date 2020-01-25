@@ -1,13 +1,15 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 const inquirer = require("inquirer");
+
 const {
-  html,
-  htmlWithScript,
-  htmlEnd,
-  htmlWithStyles
-} = require("./templates/html");
+  htmlFile,
+  htmlCssFiles,
+  htmlJsFiles,
+  htmlCssJsFiles
+} = require("./utils");
 
 const questions = [
   {
@@ -29,53 +31,27 @@ const questions = [
 ];
 
 inquirer.prompt(questions).then(({ css, javascript, projectName }) => {
-  if (!css && !javascript) {
-    return fs.writeFile("index.html", `${html(projectName)}${htmlEnd}`, err => {
-      if (err) console.error(err);
-    });
-  }
+  // switch (true) {
+  //   case css && javascript:
+  //     htmlCssJsFiles(projectName);
+  //     break;
+  //   case javascript:
+  //     htmlJsFiles(projectName);
+  //     break;
+  //   case css:
+  //     htmlCssFiles(projectName);
+  //     break;
+  //   default:
+  //     htmlFile(projectName);
+  // }
 
   if (javascript && css) {
-    fs.writeFile(
-      "index.html",
-      `${htmlWithStyles(projectName)}${htmlWithScript}`,
-      err => {
-        if (err) console.error(err);
-      }
-    );
-
-    fs.writeFile("style.css", "", err => {
-      if (err) console.error(err);
-    });
-
-    fs.writeFile("script.js", "", err => {
-      if (err) console.error(err);
-    });
-    return;
-  }
-
-  if (javascript) {
-    fs.writeFile("index.html", `${html(projectName)}${htmlWithScript}`, err => {
-      if (err) console.error(err);
-    });
-    fs.writeFile("script.js", "", err => {
-      if (err) console.error(err);
-    });
-    return;
-  }
-
-  if (css) {
-    fs.writeFile(
-      "index.html",
-      `${htmlWithStyles(projectName)}${htmlEnd}`,
-      err => {
-        if (err) console.error(err);
-      }
-    );
-
-    fs.writeFile("style.css", "", err => {
-      if (err) console.error(err);
-    });
-    return;
+    htmlCssJsFiles(projectName);
+  } else if (javascript) {
+    htmlJsFiles(projectName);
+  } else if (css) {
+    htmlCssFiles(projectName);
+  } else {
+    htmlFile(projectName);
   }
 });
