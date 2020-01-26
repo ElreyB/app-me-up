@@ -21,21 +21,16 @@ if (github && github !== "github") {
 
 prompt(github ? githubQuestion : questions).then(
   ({ css, javascript, projectName, name }) => {
-    switch (true) {
-      case name:
-        ghRepoFiles(name);
-        break;
-      case css && javascript:
-        htmlCssJsFiles(projectName);
-        break;
-      case javascript:
-        htmlJsFiles(projectName);
-        break;
-      case css:
-        htmlCssFiles(projectName);
-        break;
-      default:
-        htmlFile(projectName);
+    if (name) {
+      ghRepoFiles(name);
+    } else if (javascript && css) {
+      htmlCssJsFiles(projectName);
+    } else if (javascript) {
+      htmlJsFiles(projectName);
+    } else if (css) {
+      htmlCssFiles(projectName);
+    } else {
+      htmlFile(projectName);
     }
 
     openInBrowser(["index.html"], console.log.bind(console));

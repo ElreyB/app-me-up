@@ -1,4 +1,5 @@
 node_modules
+.vscode
 index.html
 script.js
 style.css
