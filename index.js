@@ -4,6 +4,7 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 const { openInBrowser } = require("./openInBrowser");
+const { githubQuestion, questions } = require("./questions");
 
 const {
   htmlFile,
@@ -18,33 +19,6 @@ const github = process.argv.slice(2)[0];
 if (github && github !== "github") {
   throw `Did not recognize: ${github}`;
 }
-
-const githubQuestion = [
-  {
-    type: "input",
-    name: "name",
-    message: "What is your github username?"
-  }
-];
-
-const questions = [
-  {
-    type: "input",
-    name: "projectName",
-    message: "What is the name of your project?",
-    default: "Document"
-  },
-  {
-    type: "confirm",
-    name: "css",
-    message: "Do you want a css file?"
-  },
-  {
-    type: "confirm",
-    name: "javascript",
-    message: "Do you want a js file?"
-  }
-];
 
 inquirer
   .prompt(github ? githubQuestion : questions)
