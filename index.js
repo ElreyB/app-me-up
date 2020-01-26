@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 
-const fs = require("fs");
-const inquirer = require("inquirer");
+const { prompt } = require("inquirer");
 const { openInBrowser } = require("./openInBrowser");
 const { githubQuestion, questions } = require("./questions");
 
@@ -20,36 +19,25 @@ if (github && github !== "github") {
   throw `Did not recognize: ${github}`;
 }
 
-inquirer
-  .prompt(github ? githubQuestion : questions)
-  .then(({ css, javascript, projectName, name }) => {
-    // switch (true) {
-    //   case name:
-    //     ghRepoFiles(name);
-    //     break;
-    //   case css && javascript:
-    //     htmlCssJsFiles(projectName);
-    //     break;
-    //   case javascript:
-    //     htmlJsFiles(projectName);
-    //     break;
-    //   case css:
-    //     htmlCssFiles(projectName);
-    //     break;
-    //   default:
-    //     htmlFile(projectName);
-    // }
-
-    if (name) {
-      ghRepoFiles(name);
-    } else if (javascript && css) {
-      htmlCssJsFiles(projectName);
-    } else if (javascript) {
-      htmlJsFiles(projectName);
-    } else if (css) {
-      htmlCssFiles(projectName);
-    } else {
-      htmlFile(projectName);
+prompt(github ? githubQuestion : questions).then(
+  ({ css, javascript, projectName, name }) => {
+    switch (true) {
+      case name:
+        ghRepoFiles(name);
+        break;
+      case css && javascript:
+        htmlCssJsFiles(projectName);
+        break;
+      case javascript:
+        htmlJsFiles(projectName);
+        break;
+      case css:
+        htmlCssFiles(projectName);
+        break;
+      default:
+        htmlFile(projectName);
     }
+
     openInBrowser(["index.html"], console.log.bind(console));
-  });
+  }
+);
